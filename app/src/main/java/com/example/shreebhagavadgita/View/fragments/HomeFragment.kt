@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shreebhagavadgita.DataSource.Models.Chapters
 import com.example.shreebhagavadgita.R
 import com.example.shreebhagavadgita.View.Adapters.ChaptersAdapter
+import com.example.shreebhagavadgita.View.NetworkManager
 import com.example.shreebhagavadgita.ViewModel.MainViewModel
 import com.example.shreebhagavadgita.databinding.ExitDialogBinding
 import com.example.shreebhagavadgita.databinding.FragmentHomeBinding
@@ -27,7 +28,7 @@ import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
-    private lateinit var binding: com.example.shreebhagavadgita.databinding.FragmentHomeBinding
+    private lateinit var binding: FragmentHomeBinding
     private val viewModel: MainViewModel by viewModels()
     private lateinit var chapterAdapter: ChaptersAdapter
 
@@ -37,16 +38,37 @@ class HomeFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(layoutInflater)
-        getAllChapter()
+
+        checkInternetConnectivity()
+
 
 //        findNavController().popBackStack()
         return binding.root
     }
 
+    private fun checkInternetConnectivity() {
+
+        val networkManager = NetworkManager(requireContext())
+
+        networkManager.observe(viewLifecycleOwner) {
+
+            if (it) {
+                binding.shimmer.visibility = View.VISIBLE
+                binding.rvChapters.visibility = View.VISIBLE
+                binding.noInternetImg.visibility = View.GONE
+                binding.noInternet.visibility = View.GONE
+                getAllChapter()
+            } else {
+                binding.shimmer.visibility = View.GONE
+                binding.rvChapters.visibility = View.GONE
+                binding.noInternetImg.visibility = View.VISIBLE
+                binding.noInternet.visibility = View.VISIBLE
+            }
+        }
+    }
+
 
     private fun getAllChapter() {
-
-
         lifecycleScope.launch {
 
             viewModel.getAllChapter().collect {
@@ -64,15 +86,11 @@ class HomeFragment : Fragment() {
 //                for (i in it) {
 //                    chapterAdapter
 //                }
-//                setRecyclerView(it)
+
             }
         }
     }
 
-
-    private fun setRecyclerView(it: Chapters) {
-//     val adapter=homeAdapter(requireActivity(),list)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -110,17 +128,6 @@ class HomeFragment : Fragment() {
 
         // Set dialog background to transparent
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        // Apply blur effect to the background
-//        val blurLayout = Dialog(requireContext())
-//        blurLayout.setBlurredView(view as ViewGroup, dialog.window)
-
-        // Set dialog parameters: height, width, and blur effect
-//        val lp = WindowManager.LayoutParams()
-//        lp.width = WindowManager.LayoutParams.WRAP_CONTENT
-//        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
-//        lp.flags = WindowManager.LayoutParams.FLAG_BLUR_BEHIND
-//        dialog.window?.attributes = lp
 
         // Show the dialog
         dialog.show()
