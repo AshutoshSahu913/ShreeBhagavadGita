@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:src="@drawable/img"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,24 +20,12 @@
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:gravity="center"
-        android:layout_marginBottom="100dp"
+
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/ananda_namaste_regular"
-            android:text="Shrimad Bhagvad Gita"
-            android:textColor="#000000"
-            android:layout_marginBottom="10dp"
-            android:elevation="10dp"
-            android:padding="5dp"
-            android:textSize="@dimen/_30ssp"
-            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView2"
@@ -47,10 +35,24 @@
             android:padding="5dp"
             android:gravity="center"
             android:background="@color/appColor"
-            android:textStyle="bold"
+
             android:text="कर्म करो, परिणाम की आकांक्षा मत करो।"
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:fontFamily="@font/ananda_namaste_regular"
+        android:padding="5dp"
+        android:text="Shrimad Bhagvad Gita"
+        android:textColor="#000000"
+        android:textSize="@dimen/_25sdp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

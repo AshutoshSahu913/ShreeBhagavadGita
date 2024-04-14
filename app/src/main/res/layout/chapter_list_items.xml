@@ -48,7 +48,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/chapterName"
+                        android:id="@+id/tvChapterNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/baloo_bhai_2_extrabold"
@@ -59,6 +59,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvChapterTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/baloo_bhai_2_extrabold"
@@ -80,6 +81,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tvChapterDes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/commissioner_light"
@@ -107,7 +109,7 @@
                     android:src="@drawable/baseline_format_list_bulleted_24" />
 
                 <TextView
-                    android:id="@+id/viewCount"
+                    android:id="@+id/tvVerseCount"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
@@ -126,7 +128,7 @@
                     android:layout_marginStart="@dimen/_2sdp"
                     android:fontFamily="@font/baloo_bhai_2"
                     android:gravity="center"
-                    android:text="views"
+                    android:text="Verses"
                     android:textColor="@color/black"
                     android:textSize="17sp"
                     android:textStyle="bold" />

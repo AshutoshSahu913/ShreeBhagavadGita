@@ -147,10 +147,9 @@
             app:layout_constraintTop_toBottomOf="@+id/textView">
 
             <com.facebook.shimmer.ShimmerFrameLayout
-                android:layout_width="match_parent"
                 android:id="@+id/shimmer"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:padding="@dimen/_5sdp"
                 android:visibility="visible">
 
@@ -173,10 +172,9 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvChapters"
-                tools:listitem="@layout/chapter_list_items"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone" />
+                tools:listitem="@layout/chapter_list_items" />
 
         </LinearLayout>
 

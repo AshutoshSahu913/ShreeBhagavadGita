@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shreebhagavadgita.DataSource.Models.Chapters
+import com.example.shreebhagavadgita.View.Adapters.ChaptersAdapter
 import com.example.shreebhagavadgita.ViewModel.MainViewModel
 import com.example.shreebhagavadgita.databinding.FragmentHomeBinding
 import kotlinx.coroutines.launch
@@ -17,7 +19,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: MainViewModel by viewModels()
-//    private homeAdpater:HomeAdapter()
+    private lateinit var chapterAdapter: ChaptersAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,9 +35,20 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch {
 
             viewModel.getAllChapter().collect {
-                for (i in it) {
-                    Log.d("ITEMS", "getAllChapter: $i")
-                }
+
+                binding.rvChapters.layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+//                chapterAdapter = ChaptersAdapter(requireContext(), it)
+                chapterAdapter = ChaptersAdapter()
+                binding.rvChapters.adapter = chapterAdapter
+                //here submit the list to adapter
+                chapterAdapter.differ.submitList(it)
+                binding.shimmer.visibility = View.GONE
+
+                //here check single item in the log
+//                for (i in it) {
+//                    chapterAdapter
+//                }
 //                setRecyclerView(it)
             }
         }
