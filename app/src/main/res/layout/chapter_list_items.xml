@@ -29,7 +29,7 @@
             android:id="@+id/linearLayout4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="5"
+            android:layout_margin="5dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,6 +48,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/chapterName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/baloo_bhai_2_extrabold"
