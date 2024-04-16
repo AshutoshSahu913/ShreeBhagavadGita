@@ -1,6 +1,5 @@
 package com.example.shreebhagavadgita.View.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shreebhagavadgita.View.Adapters.VersesAdapter
+import com.example.shreebhagavadgita.View.NetworkManager
 import com.example.shreebhagavadgita.ViewModel.MainViewModel
 import com.example.shreebhagavadgita.databinding.FragmentVersesBinding
 import kotlinx.coroutines.launch
@@ -29,12 +29,11 @@ class VersesFragment : Fragment() {
         //get a chapter details from previous fragment
         getAndSetChaptersDetails()
 
-        //get all the verses of according to chapter number
-        getAllVerses()
-
-
         //click the see more show all data
         readMore()
+
+        //check the internet connectivity
+        checkInternetConnectivity()
         return binding.root
     }
 
@@ -53,7 +52,27 @@ class VersesFragment : Fragment() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
+    private fun checkInternetConnectivity() {
+        val networkManager = NetworkManager(requireContext())
+        networkManager.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.shimmerVerses.visibility = View.GONE
+                binding.rvVerses.visibility = View.VISIBLE
+                binding.topLinear.visibility = View.VISIBLE
+                binding.noInternet.visibility = View.GONE
+
+                //get all the verses of according to chapter number
+                getAllVerses()
+
+            } else {
+                binding.shimmerVerses.visibility = View.GONE
+                binding.rvVerses.visibility = View.GONE
+                binding.topLinear.visibility = View.INVISIBLE
+                binding.noInternet.visibility = View.VISIBLE
+            }
+        }
+    }
+
     private fun getAndSetChaptersDetails() {
         val bundle = arguments
         chapterNumber = bundle?.getInt("chapterNumber")!!
@@ -61,7 +80,6 @@ class VersesFragment : Fragment() {
         binding.tvChapterTitle.text = bundle.getString("chapterTitle")
         binding.tvChapterDes.text = bundle.getString("chapterDesc")
         binding.tvVerseCount.text = bundle.getInt("chapterCount").toString()
-
     }
 
     private fun getAllVerses() {

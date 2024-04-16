@@ -50,16 +50,16 @@ class HomeFragment : Fragment() {
         networkManager.observe(viewLifecycleOwner) {
 
             if (it) {
+                binding.topLinear.visibility = View.VISIBLE
                 binding.shimmer.visibility = View.VISIBLE
                 binding.rvChapters.visibility = View.VISIBLE
-                binding.noInternetImg.visibility = View.GONE
                 binding.noInternet.visibility = View.GONE
                 getAllChapter()
             } else {
                 binding.shimmer.visibility = View.GONE
                 binding.rvChapters.visibility = View.GONE
-                binding.noInternetImg.visibility = View.VISIBLE
                 binding.noInternet.visibility = View.VISIBLE
+                binding.topLinear.visibility = View.INVISIBLE
             }
         }
     }
