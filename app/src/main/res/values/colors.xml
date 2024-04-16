@@ -3,6 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="appColor">#9FFF8300</color>
+    <!--    <color name="appColor">#FF0000</color>-->
+    <!--    <color name="color1">#8FF86767</color>-->
     <color name="appColor1">#ff6200</color>
-
+    <color name="color1">#8FFF6E40</color>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.shreebhagavadgita.View.Adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -9,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shreebhagavadgita.DataSource.Models.ChaptersItem
 import com.example.shreebhagavadgita.databinding.ChapterListItemsBinding
 
-class ChaptersAdapter(/*var context: Context, var list: List<ChaptersItem>*/) :
+class ChaptersAdapter(val onClickedChapter: (ChaptersItem) -> Unit) :
     RecyclerView.Adapter<ChaptersAdapter.viewHolder>() {
 
     //show the list compare the old and new data in recyclerview
@@ -37,9 +36,11 @@ class ChaptersAdapter(/*var context: Context, var list: List<ChaptersItem>*/) :
                 tvChapterTitle.text = chapter.name_translated
                 tvChapterDes.text = chapter.chapter_summary
                 tvVerseCount.text = chapter.verses_count.toString()
-
             }
 
+            binding.itemClick.setOnClickListener {
+                onClickedChapter(chapter)
+            }
         }
 
 
@@ -56,7 +57,6 @@ class ChaptersAdapter(/*var context: Context, var list: List<ChaptersItem>*/) :
 
     override fun onBindViewHolder(holder: ChaptersAdapter.viewHolder, position: Int) {
         holder.bind(position)
-
 
     }
 

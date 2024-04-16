@@ -18,5 +18,14 @@
         android:id="@+id/homeFragment"
         android:name="com.example.shreebhagavadgita.View.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_versesFragment"
+            app:destination="@id/versesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/versesFragment"
+        android:name="com.example.shreebhagavadgita.View.fragments.VersesFragment"
+        android:label="fragment_verses"
+        tools:layout="@layout/fragment_verses" />
 </navigation>

@@ -1,7 +1,6 @@
 package com.example.shreebhagavadgita.View.fragments
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -9,15 +8,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.activity.addCallback
-import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.shreebhagavadgita.DataSource.Models.Chapters
+import com.example.shreebhagavadgita.DataSource.Models.ChaptersItem
 import com.example.shreebhagavadgita.R
 import com.example.shreebhagavadgita.View.Adapters.ChaptersAdapter
 import com.example.shreebhagavadgita.View.NetworkManager
@@ -35,7 +32,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View { 
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
@@ -76,7 +73,7 @@ class HomeFragment : Fragment() {
                 binding.rvChapters.layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 //                chapterAdapter = ChaptersAdapter(requireContext(), it)
-                chapterAdapter = ChaptersAdapter()
+                chapterAdapter = ChaptersAdapter(::onChapterIVClicked)
                 binding.rvChapters.adapter = chapterAdapter
                 //here submit the list to adapter
                 chapterAdapter.differ.submitList(it)
@@ -107,6 +104,16 @@ class HomeFragment : Fragment() {
         }
     }
 
+    fun onChapterIVClicked(chaptersItem: ChaptersItem) {
+
+        val bundle = Bundle()
+        bundle.putInt("chapterNumber", chaptersItem.chapter_number)
+        bundle.putString("chapterTitle", chaptersItem.name_translated)
+        bundle.putString("chapterDesc", chaptersItem.chapter_summary)
+        bundle.putInt("chapterCount", chaptersItem.verses_count)
+
+        findNavController().navigate(R.id.action_homeFragment_to_versesFragment, bundle)
+    }
     @SuppressLint("MissingInflatedId")
     private fun showConfirmationDialog() {
         // Inflate the custom layout for the dialog
@@ -132,8 +139,5 @@ class HomeFragment : Fragment() {
         // Show the dialog
         dialog.show()
 
-    }
-
-    companion object {
     }
 }
