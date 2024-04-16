@@ -32,7 +32,25 @@ class VersesFragment : Fragment() {
         //get all the verses of according to chapter number
         getAllVerses()
 
+
+        //click the see more show all data
+        readMore()
         return binding.root
+    }
+
+    private fun readMore() {
+        var isExpended = false
+        binding.readMore.setOnClickListener {
+            if (!isExpended) {
+                binding.tvChapterDes.maxLines = 40
+                binding.readMore.text = "Less"
+                isExpended = true
+            } else {
+                binding.tvChapterDes.maxLines = 5
+                binding.readMore.text = "Read More..."
+                isExpended = false
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
