@@ -18,5 +18,7 @@ interface ApiService {
     fun getParticularVerse(
         @Path("chapterNum") chapterNumber: Int,
         @Path("verseNum") verseNumber: Int
-    ):Call<VersesItem>
+    ): Call<VersesItem>
+
+
 }

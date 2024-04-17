@@ -31,7 +31,7 @@ class SplashFragment : Fragment() {
             {
                 findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
 
-            }, 4000
+            }, 3000
         )
 
         return inflater.inflate(R.layout.fragment_splash, container, false)
