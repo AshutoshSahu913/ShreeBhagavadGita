@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shreebhagavadgita.databinding.VersesListItemsBinding
 
-class VersesAdapter : RecyclerView.Adapter<VersesAdapter.viewHolder>() {
+class VersesAdapter(val onVersesItemClicked: (String, Int) -> Unit) :
+    RecyclerView.Adapter<VersesAdapter.viewHolder>() {
     private var diffUtil = object : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
@@ -26,7 +27,14 @@ class VersesAdapter : RecyclerView.Adapter<VersesAdapter.viewHolder>() {
             binding.apply {
                 verseNumber.text = "Verse ${position + 1}"
                 verseDes.text = verses
+                versesItemClick.setOnClickListener {
+                    onVersesItemClicked(verses, position + 1)
+                }
+
+
             }
+
+
         }
     }
 

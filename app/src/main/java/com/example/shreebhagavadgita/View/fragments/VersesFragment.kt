@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.shreebhagavadgita.R
 import com.example.shreebhagavadgita.View.Adapters.VersesAdapter
 import com.example.shreebhagavadgita.View.NetworkManager
 import com.example.shreebhagavadgita.ViewModel.MainViewModel
@@ -18,7 +20,7 @@ import kotlinx.coroutines.launch
 class VersesFragment : Fragment() {
     private lateinit var binding: FragmentVersesBinding
     private val viewModel: MainViewModel by viewModels()
-    private var verseAdapter = VersesAdapter()
+    private var verseAdapter = VersesAdapter(::onVersesItemClicked)
     private var chapterNumber = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -56,7 +58,7 @@ class VersesFragment : Fragment() {
         val networkManager = NetworkManager(requireContext())
         networkManager.observe(viewLifecycleOwner) {
             if (it) {
-                binding.shimmerVerses.visibility = View.GONE
+                binding.shimmerVerses.visibility = View.VISIBLE
                 binding.rvVerses.visibility = View.VISIBLE
                 binding.topLinear.visibility = View.VISIBLE
                 binding.noInternet.visibility = View.GONE
@@ -101,6 +103,7 @@ class VersesFragment : Fragment() {
                     }
                 }
                 Log.d("LISTS", "getAllVerses: ${verseList.size}")
+                verseAdapter = VersesAdapter(::onVersesItemClicked)
                 binding.rvVerses.adapter = verseAdapter
                 //get list to adpater
                 verseAdapter.differ.submitList(verseList)
@@ -114,5 +117,14 @@ class VersesFragment : Fragment() {
                 }*/
             }
         }
+    }
+
+    private fun onVersesItemClicked(verses: String, versesNumber: Int) {
+
+        var bundle = Bundle()
+        bundle.putInt("chapterNum", chapterNumber)
+        bundle.putInt("versesNum", versesNumber)
+        findNavController().navigate(R.id.action_versesFragment_to_versesDetailsFragment, bundle)
+
     }
 }

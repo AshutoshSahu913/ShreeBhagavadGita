@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".View.fragments.VersesDetailsFragment">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:alpha="0.1"
+                android:src="@drawable/krsna"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+                app:layout_constraintTop_toTopOf="@+id/linearLayout4" />
+
+            <LinearLayout
+
+                android:id="@+id/linearLayout4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/topBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:padding="@dimen/_5sdp"
+                        android:src="@drawable/kalash" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:fontFamily="@font/ananda_namaste_regular"
+                        android:padding="5dp"
+                        android:text="Shrimad Bhagvad Gita"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_15ssp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:padding="@dimen/_5sdp"
+                        android:src="@drawable/kalash" />
+                </LinearLayout>
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:indeterminateTint="@color/appColor"
+                    android:visibility="visible"
+                    app:indicatorColor="@color/appColor"
+                    app:layout_anchor="@id/topBar"
+                    app:layout_anchorGravity="bottom"
+                    app:trackColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvVersesNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/baloo_bhai_2_bold"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:text="|| 1.4 ||"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvVerseTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/baloo_bhai_2_bold"
+                    android:gravity="center"
+                    android:padding="@dimen/_6sdp"
+                    android:text="धृतराष्ट्र उवाच धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः। मामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय।।"
+                    android:textColor="@color/appColor"
+                    android:textSize="@dimen/_15ssp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/tvTranslateEg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/commissioner_light"
+                    android:gravity="center"
+                    android:padding="@dimen/_6sdp"
+                    android:text="sañjaya uvācha dṛiṣhṭvā tu pāṇḍavānīkaṁ vyūḍhaṁ duryodhanastadā āchāryamupasaṅgamya rājā vachanamabravīt"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11ssp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvVerseWords"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/commissioner_light"
+                    android:gravity="center"
+                    android:padding="@dimen/_6sdp"
+                    android:text="sanjayaḥ uvācha—Sanjay said; dṛiṣhṭvā—on observing; tu—but; pāṇḍava-anīkam—the Pandava army; vyūḍham—standing in a military formation; duryodhanaḥ—King Duryodhan; tadā—then; āchāryam—teacher; upasaṅgamya—approached; rājā—the king; vachanam—words; abravīt—spoke "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11sdp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:src="@drawable/verse_view" />
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:id="@+id/linearLayout8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10ssp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/baloo_bhai_2_medium"
+                    android:text="Translations"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cardView2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:padding="@dimen/_5sdp"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/_10ssp"
+                            app:cardUseCompatPadding="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:id="@+id/linearLayout9"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:orientation="horizontal"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/commissioner_light"
+                                        android:gravity="center"
+                                        android:padding="@dimen/_6sdp"
+                                        android:text="Author : "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_11sdp"
+                                        android:textStyle="bold" />
+
+
+                                    <TextView
+                                        android:id="@+id/tvAuthorName"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:fontFamily="@font/baloo_bhai_2_bold"
+                                        android:gravity="center"
+                                        android:padding="@dimen/_6sdp"
+                                        android:text="Swami shivanand "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_11sdp"
+                                        android:textStyle="bold" />
+
+
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/translationTxt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginBottom="@dimen/_20sdp"
+                                    android:fontFamily="@font/commissioner_light"
+                                    android:padding="4dp"
+                                    android:text="यहाँ (पाण्डवों की सेना में) बड़े-बड़े शूरवीर हैं, जिनके बहुत बड़े-बड़े धनुष हैं तथा जो युद्ध में भीम और अर्जुनके समान हैं। उनमें युयुधान (सात्यकि), राजा विराट और महारथी द्रुपद भी हैं। धृष्टकेतु और चेकितान तथा पराक्रमी काशिराज भी हैं। पुरुजित् और कुन्तिभोज--ये दोनों भाई तथा मनुष्योंमें श्रेष्ठ शैब्य भी हैं। पराक्रमी युधामन्यु और पराक्रमी उत्तमौजा भी हैं। सुभद्रापुत्र अभिमन्यु और द्रौपदी के पाँचों पुत्र भी हैं। ये सब-के-सब महारथी हैं। "
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_11sdp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <ImageView
+                        android:id="@+id/leftBtn"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+
+                        android:layout_marginStart="40dp"
+                        android:background="@drawable/back_btn_dark"
+                        android:clickable="true"
+                        android:elevation="5dp"
+                        android:padding="4dp"
+                        android:src="@drawable/baseline_keyboard_double_arrow_left_24"
+                        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
+                        app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                        app:tint="@color/white" />
+
+
+                    <ImageView
+                        android:id="@+id/rightBtn"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="40dp"
+                        android:background="@drawable/back_btn"
+                        android:clickable="true"
+                        android:elevation="5dp"
+                        android:padding="4dp"
+                        android:src="@drawable/baseline_keyboard_double_arrow_right_24"
+                        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
+                        app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                        app:tint="@color/white" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10ssp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/baloo_bhai_2_medium"
+                    android:text="Commentary"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+
+                        android:id="@+id/constraintLayout4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.card.MaterialCardView
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:padding="@dimen/_5sdp"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/_10ssp"
+                            app:cardUseCompatPadding="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:orientation="horizontal"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/commissioner_light"
+                                        android:gravity="center"
+                                        android:padding="@dimen/_6sdp"
+                                        android:text="Author : "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_11sdp"
+                                        android:textStyle="bold" />
+
+
+                                    <TextView
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:fontFamily="@font/baloo_bhai_2_bold"
+                                        android:gravity="center"
+                                        android:padding="@dimen/_6sdp"
+                                        android:text="Swami shivanand "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_11sdp"
+                                        android:textStyle="bold" />
+
+
+                                </LinearLayout>
+
+                                <TextView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:fontFamily="@font/commissioner_light"
+                                    android:gravity="center_vertical"
+                                    android:padding="4dp"
+                                    android:text="यहाँ (पाण्डवों की सेना में) बड़े-बड़े शूरवीर हैं, जिनके बहुत बड़े-बड़े धनुष हैं तथा जो युद्ध में भीम और अर्जुनके समान हैं। उनमें युयुधान (सात्यकि), राजा विराट और महारथी द्रुपद भी हैं। धृष्टकेतु और चेकितान तथा पराक्रमी काशिराज भी हैं। पुरुजित् और कुन्तिभोज--ये दोनों भाई तथा मनुष्योंमें श्रेष्ठ शैब्य भी हैं। पराक्रमी युधामन्यु और पराक्रमी उत्तमौजा भी हैं। सुभद्रापुत्र अभिमन्यु और द्रौपदी के पाँचों पुत्र भी हैं। ये सब-के-सब महारथी हैं। "
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_11sdp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/readMore"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginBottom="25dp"
+                                    android:fontFamily="@font/baloo_bhai_2_medium"
+                                    android:padding="5dp"
+                                    android:text="Read More..."
+                                    android:textColor="#536DFE" />
+
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <ImageView
+                        android:id="@+id/leftBtn1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="50dp"
+                        android:background="@drawable/back_btn_dark"
+                        android:clickable="true"
+                        android:elevation="5dp"
+                        android:padding="4dp"
+                        android:src="@drawable/baseline_keyboard_double_arrow_left_24"
+                        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout4"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
+                        app:tint="@color/white" />
+
+
+                    <ImageView
+                        android:id="@+id/rightBtn2"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="50dp"
+                        android:background="@drawable/back_btn"
+                        android:clickable="true"
+                        android:elevation="5dp"
+                        android:padding="4dp"
+                        android:src="@drawable/baseline_keyboard_double_arrow_right_24"
+                        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout4"
+                        app:layout_constraintEnd_toEndOf="@+id/constraintLayout4"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
+                        app:tint="@color/white" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+
+                android:id="@+id/noInternet"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="@dimen/_40sdp"
+                    android:src="@drawable/no_internet"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/topLinear" />
+
+                <TextView
+
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:fontFamily="@font/baloo_bhai_2_medium"
+                    android:gravity="center"
+                    android:text="No Internet Connection! \nCheck for saved verses in setting"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/noInternetImg" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

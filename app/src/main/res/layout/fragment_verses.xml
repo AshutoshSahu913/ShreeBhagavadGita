@@ -175,9 +175,8 @@
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmerVerses"
                 android:layout_width="match_parent"
-
                 android:layout_height="wrap_content"
-                android:visibility="visible">
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"

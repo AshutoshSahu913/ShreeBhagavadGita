@@ -13,4 +13,10 @@ interface ApiService {
 
     @GET("v2/chapters/{chapter_number}/verses/")
     fun getVerses(@Path("chapter_number") chapter_number: Int): Call<List<VersesItem>>
+
+    @GET("v2/chapters/{chapterNum}/verses/{verseNum}/")
+    fun getParticularVerse(
+        @Path("chapterNum") chapterNumber: Int,
+        @Path("verseNum") verseNumber: Int
+    ):Call<VersesItem>
 }

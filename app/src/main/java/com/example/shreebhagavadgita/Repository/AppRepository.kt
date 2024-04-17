@@ -1,10 +1,8 @@
 package com.example.shreebhagavadgita.Repository
 
 import android.util.Log
-import android.widget.Toast
 import com.example.shreebhagavadgita.DataSource.API.ApiUtils
 import com.example.shreebhagavadgita.DataSource.Models.Chapters
-import com.example.shreebhagavadgita.DataSource.Models.Verses
 import com.example.shreebhagavadgita.DataSource.Models.VersesItem
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -50,6 +48,29 @@ class AppRepository {
             }
         }
         ApiUtils.api.getVerses(chapterNumber).enqueue(callback)
+        awaitClose {
+
+        }
+    }
+
+    fun getParticularVerse(chapterNumber: Int, verseNum: Int): Flow<VersesItem> = callbackFlow {
+        val callback = object : Callback<VersesItem> {
+            override fun onResponse(call: Call<VersesItem>, response: Response<VersesItem>) {
+                if (response.isSuccessful && response.body() != null) {
+                    Log.d(
+                        "SINGLE_VERSE",
+                        "onResponse------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: ${response.body()}"
+                    )
+                    trySend(response.body()!!)
+                    close()
+                }
+            }
+
+            override fun onFailure(call: Call<VersesItem>, t: Throwable) {
+                close(t)
+            }
+        }
+        ApiUtils.api.getParticularVerse(chapterNumber, verseNum).enqueue(callback)
         awaitClose {
 
         }
