@@ -6,9 +6,13 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shreebhagavadgita.DataSource.Models.ChaptersItem
+import com.example.shreebhagavadgita.R
 import com.example.shreebhagavadgita.databinding.ChapterListItemsBinding
 
-class ChaptersAdapter(val onClickedChapter: (ChaptersItem) -> Unit) :
+class ChaptersAdapter(
+    val onClickedChapter: (ChaptersItem) -> Unit,
+    val onFavClicked: (ChaptersItem) -> Unit
+) :
     RecyclerView.Adapter<ChaptersAdapter.viewHolder>() {
 
     //show the list compare the old and new data in recyclerview
@@ -40,6 +44,14 @@ class ChaptersAdapter(val onClickedChapter: (ChaptersItem) -> Unit) :
 
             binding.itemClick.setOnClickListener {
                 onClickedChapter(chapter)
+            }
+            binding.apply {
+
+                val clikced=
+                saveBtn.setOnClickListener {
+                    saveBtn.setImageResource(R.drawable.baseline_favorite_24)
+                    onFavClicked(chapter)
+                }
             }
         }
 

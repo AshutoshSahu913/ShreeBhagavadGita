@@ -77,6 +77,17 @@
                         android:layout_margin="@dimen/_5sdp"
                         android:padding="@dimen/_5sdp"
                         android:src="@drawable/kalash" />
+
+                    <ImageButton
+                        android:id="@+id/saveBtn"
+                        android:layout_width="40dp"
+
+                        android:layout_height="40dp"
+                        android:layout_gravity="end|center_vertical"
+
+                        android:background="@drawable/circle"
+                        android:src="@drawable/baseline_favorite_border_24"
+                        />
                 </LinearLayout>
 
                 <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -507,6 +518,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/noInternetImg" />
             </LinearLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

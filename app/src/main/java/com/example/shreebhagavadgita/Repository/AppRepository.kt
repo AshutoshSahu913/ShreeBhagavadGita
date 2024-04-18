@@ -4,6 +4,8 @@ import android.util.Log
 import com.example.shreebhagavadgita.DataSource.API.ApiUtils
 import com.example.shreebhagavadgita.DataSource.Models.Chapters
 import com.example.shreebhagavadgita.DataSource.Models.VersesItem
+import com.example.shreebhagavadgita.DataSource.Room.SaveChapterDao
+import com.example.shreebhagavadgita.DataSource.Room.SavedChapterEntity
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -11,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AppRepository {
+class AppRepository(val saveChapterDao: SaveChapterDao) {
 
     fun getAllChapters(): Flow<Chapters> = callbackFlow {
         val callBack = object : Callback<Chapters> {
@@ -77,4 +79,6 @@ class AppRepository {
     }
 
 
+    suspend fun insertData(savedChapter: SavedChapterEntity) =
+        saveChapterDao.insertData(savedChapter)
 }

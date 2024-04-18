@@ -71,14 +71,11 @@
                 </LinearLayout>
 
                 <ImageButton
-                    android:id="@+id/likeBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_margin="2dp"
-                    android:layout_weight="0.3"
-                    android:background="@android:color/transparent"
-                    android:padding="@dimen/_4sdp"
+                    android:id="@+id/saveBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:background="@drawable/circle"
                     android:src="@drawable/baseline_favorite_border_24" />
             </LinearLayout>
 

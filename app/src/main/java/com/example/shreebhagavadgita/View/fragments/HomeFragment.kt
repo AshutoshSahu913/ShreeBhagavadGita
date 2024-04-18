@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shreebhagavadgita.DataSource.Models.ChaptersItem
+import com.example.shreebhagavadgita.DataSource.Room.SavedChapterEntity
 import com.example.shreebhagavadgita.R
 import com.example.shreebhagavadgita.View.Adapters.ChaptersAdapter
 import com.example.shreebhagavadgita.View.NetworkManager
@@ -73,7 +75,7 @@ class HomeFragment : Fragment() {
                 binding.rvChapters.layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 //                chapterAdapter = ChaptersAdapter(requireContext(), it)
-                chapterAdapter = ChaptersAdapter(::onChapterIVClicked)
+                chapterAdapter = ChaptersAdapter(::onChapterIVClicked, ::onFavClicked)
                 binding.rvChapters.adapter = chapterAdapter
                 //here submit the list to adapter
                 chapterAdapter.differ.submitList(it)
@@ -88,6 +90,42 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun onFavClicked(chaptersItem: ChaptersItem) {
+        lifecycleScope.launch {
+            viewModel.getVerses(chaptersItem.chapter_number).collect {
+
+                //create list
+                val verseList = arrayListOf<String>()
+                for (currentVerse in it) {
+                    for (verses in currentVerse.translations) {
+                        //check only for english language
+                        if (verses.language == "english") {
+                            verseList.add(verses.description)
+                            Log.d("VERSE_LIST", "getAllVerses: ${verseList.size}")
+                            break
+                        }
+                    }
+                }
+                val saveChapter = SavedChapterEntity(
+                    chapter_number = chaptersItem.chapter_number,
+                    chapter_summary = chaptersItem.chapter_summary,
+                    chapter_summary_hindi = chaptersItem.chapter_summary_hindi,
+                    id = chaptersItem.id,
+                    name = chaptersItem.name,
+                    name_meaning = chaptersItem.name_meaning,
+                    name_translated = chaptersItem.name_translated,
+                    name_transliterated = chaptersItem.name_transliterated,
+                    slug = chaptersItem.slug,
+                    verses_count = chaptersItem.verses_count,
+
+                    verses = verseList
+
+                )
+                viewModel.insertData(saveChapter)
+            }
+        }
+
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
