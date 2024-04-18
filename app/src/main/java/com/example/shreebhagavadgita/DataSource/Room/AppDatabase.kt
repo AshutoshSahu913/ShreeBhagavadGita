@@ -13,6 +13,7 @@ abstract class AppDatabase : RoomDatabase() {
 
 
     abstract fun savedChapterDao(): SaveChapterDao
+    abstract fun savedVersesDao(): SavedVersesDao
 
     companion object {
         //create instance of database

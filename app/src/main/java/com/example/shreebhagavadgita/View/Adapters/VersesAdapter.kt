@@ -1,13 +1,14 @@
 package com.example.shreebhagavadgita.View.Adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shreebhagavadgita.databinding.VersesListItemsBinding
 
-class VersesAdapter(val onVersesItemClicked: (String, Int) -> Unit) :
+class VersesAdapter(val onVersesItemClicked: (String, Int) -> Unit, val onClick: Boolean) :
     RecyclerView.Adapter<VersesAdapter.viewHolder>() {
     private var diffUtil = object : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
@@ -27,8 +28,17 @@ class VersesAdapter(val onVersesItemClicked: (String, Int) -> Unit) :
             binding.apply {
                 verseNumber.text = "Verse ${position + 1}"
                 verseDes.text = verses
+
+                if (onClick){
+                    binding.nextBtn.visibility= View.VISIBLE
+                }else{
+                    binding.nextBtn.visibility= View.GONE
+                }
+
                 versesItemClick.setOnClickListener {
-                    onVersesItemClicked(verses, position + 1)
+                    if (onClick){
+                        onVersesItemClicked(verses, position + 1)
+                    }
                 }
 
 

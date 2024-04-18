@@ -7,6 +7,8 @@ import com.example.shreebhagavadgita.DataSource.Models.Chapters
 import com.example.shreebhagavadgita.DataSource.Models.VersesItem
 import com.example.shreebhagavadgita.DataSource.Room.SaveChapterDao
 import com.example.shreebhagavadgita.DataSource.Room.SavedChapterEntity
+import com.example.shreebhagavadgita.DataSource.Room.SavedVersesDao
+import com.example.shreebhagavadgita.DataSource.Room.SavedVersesEntity
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -14,7 +16,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AppRepository(val saveChapterDao: SaveChapterDao) {
+class AppRepository(
+    val saveChapterDao: SaveChapterDao,
+    var savedVersesDao: SavedVersesDao
+) {
 
     fun getAllChapters(): Flow<Chapters> = callbackFlow {
         val callBack = object : Callback<Chapters> {
@@ -80,8 +85,27 @@ class AppRepository(val saveChapterDao: SaveChapterDao) {
     }
 
 
+    //save chpaters
     suspend fun insertData(savedChapter: SavedChapterEntity) =
         saveChapterDao.insertData(savedChapter)
 
-    fun getSavedChapter(): LiveData<List<SavedChapterEntity>> =saveChapterDao.getSavedChapter()
+    //get saved chapters
+    fun getSavedChapter(): LiveData<List<SavedChapterEntity>> = saveChapterDao.getSavedChapter()
+
+    //get Saved particular chapter
+    fun getAParticularChapter(chapter_num: Int): LiveData<SavedChapterEntity> =
+        saveChapterDao.getAParticularChapter(chapter_num)
+
+    //saved verses
+    suspend fun insertEnglishVerse(savedVerses: SavedVersesEntity) =
+        savedVersesDao.insertEnglishVerse(savedVerses)
+
+    fun getAllEnglishVerse(): LiveData<List<SavedVersesEntity>> =
+        savedVersesDao.getAllEnglishVerse()
+
+    fun getAParticularVerse(chapter_num: Int, verse_num: Int): LiveData<SavedVersesEntity> =
+        savedVersesDao.getAParticularVerse(chapter_num, verse_num)
+
+    fun deleteSavedVerse(chapter_num: Int, verse_num: Int) =
+        savedVersesDao.deleteSavedVerse(chapter_num, verse_num)
 }

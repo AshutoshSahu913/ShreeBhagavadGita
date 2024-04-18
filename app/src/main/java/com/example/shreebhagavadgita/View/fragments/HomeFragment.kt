@@ -97,6 +97,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun onFavClicked(chaptersItem: ChaptersItem?) {
+
         lifecycleScope.launch {
             //check null here
             chaptersItem?.let {

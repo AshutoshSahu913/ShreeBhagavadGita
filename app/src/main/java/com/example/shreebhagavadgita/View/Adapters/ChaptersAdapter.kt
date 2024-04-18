@@ -53,10 +53,16 @@ class ChaptersAdapter(
                 onClickedChapter?.invoke(chapter)
             }
             binding.apply {
-
+                var isSaved = false
                 saveBtn.setOnClickListener {
-                    saveBtn.setImageResource(R.drawable.baseline_favorite_24)
-                    onFavClicked?.invoke(chapter)
+                    isSaved = if (!isSaved) {
+                        saveBtn.setImageResource(R.drawable.baseline_favorite_24)
+                        onFavClicked?.invoke(chapter)
+                        true
+                    } else {
+                        saveBtn.setImageResource(R.drawable.baseline_favorite_border_24)
+                        false
+                    }
                 }
             }
         }

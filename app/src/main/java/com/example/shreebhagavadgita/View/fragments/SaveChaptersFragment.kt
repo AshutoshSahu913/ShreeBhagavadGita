@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shreebhagavadgita.DataSource.Models.ChaptersItem
+import com.example.shreebhagavadgita.R
 import com.example.shreebhagavadgita.View.Adapters.ChaptersAdapter
 import com.example.shreebhagavadgita.ViewModel.MainViewModel
 import com.example.shreebhagavadgita.databinding.FragmentSaveChaptersBinding
@@ -68,6 +70,12 @@ class SaveChaptersFragment : Fragment() {
 
     fun onClickedChapter(chaptersItem: ChaptersItem?) {
 
+        val bundle = Bundle()
+        if (chaptersItem != null) {
+            bundle.putInt("chapterNumber", chaptersItem.chapter_number)
+            bundle.putBoolean("showRoomData", true)
+            findNavController().navigate(R.id.action_saveChaptersFragment_to_versesFragment, bundle)
+        }
 
     }
 

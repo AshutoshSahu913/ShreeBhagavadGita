@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 class VersesFragment : Fragment() {
     private lateinit var binding: FragmentVersesBinding
     private val viewModel: MainViewModel by viewModels()
-    private var verseAdapter = VersesAdapter(::onVersesItemClicked)
+    private lateinit var verseAdapter: VersesAdapter
     private var chapterNumber = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -31,12 +31,39 @@ class VersesFragment : Fragment() {
         //get a chapter details from previous fragment
         getAndSetChaptersDetails()
 
+
         //click the see more show all data
         readMore()
 
-        //check the internet connectivity
-        checkInternetConnectivity()
+        //data data from Room db
+        getData()
+
         return binding.root
+    }
+
+    private fun getData() {
+        val bundle = arguments
+        val showDataFromRoomDB = bundle?.getBoolean("showRoomData", false)
+        if (showDataFromRoomDB == true) {
+            getDataFromRoom()
+        } else {
+            //check the internet connectivity
+            checkInternetConnectivity()
+        }
+
+    }
+
+    private fun getDataFromRoom() {
+        viewModel.getAParticularChapter(chapterNumber).observe(viewLifecycleOwner) {
+
+            binding.tvChapterNumber.text = "Chapter ${it.chapter_number}"
+            binding.tvChapterTitle.text = it.name
+            binding.tvChapterDes.text = it.chapter_summary
+            binding.tvVerseCount.text = it.verses_count.toString()
+
+            showListInAdapter(it.verses, false)
+        }
+
     }
 
     private fun readMore() {
@@ -87,9 +114,6 @@ class VersesFragment : Fragment() {
     private fun getAllVerses() {
         lifecycleScope.launch {
             viewModel.getVerses(chapterNumber).collect {
-                binding.rvVerses.layoutManager = LinearLayoutManager(
-                    requireContext(), LinearLayoutManager.VERTICAL, false
-                )
                 //create list and pass to adapter
                 val verseList = arrayListOf<String>()
                 for (currentVerse in it) {
@@ -102,21 +126,27 @@ class VersesFragment : Fragment() {
                         }
                     }
                 }
-                Log.d("LISTS", "getAllVerses: ${verseList.size}")
-                verseAdapter = VersesAdapter(::onVersesItemClicked)
-                binding.rvVerses.adapter = verseAdapter
-                //get list to adpater
-                verseAdapter.differ.submitList(verseList)
 
-                //hide shimmer after data in set
-                binding.shimmerVerses.visibility = View.GONE
-
+                showListInAdapter(verseList, true)
 //                fetch data from api
                 /*for (i in it) {
                     Log.d("VERSE", "getAllVerses: $i")
                 }*/
             }
         }
+    }
+
+    private fun showListInAdapter(verseList: List<String>, onClick: Boolean) {
+        binding.rvVerses.layoutManager = LinearLayoutManager(
+            requireContext(), LinearLayoutManager.VERTICAL, false
+        )
+        verseAdapter = VersesAdapter(::onVersesItemClicked, onClick)
+        binding.rvVerses.adapter = verseAdapter
+        //get list to adpater
+        verseAdapter.differ.submitList(verseList)
+
+        //hide shimmer after data in set
+        binding.shimmerVerses.visibility = View.GONE
     }
 
     private fun onVersesItemClicked(verses: String, versesNumber: Int) {
