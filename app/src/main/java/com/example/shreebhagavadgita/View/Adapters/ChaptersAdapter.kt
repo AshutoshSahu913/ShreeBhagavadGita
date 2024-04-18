@@ -13,7 +13,8 @@ import com.example.shreebhagavadgita.databinding.ChapterListItemsBinding
 class ChaptersAdapter(
     val onClickedChapter: ((ChaptersItem?) -> Unit)?,
     val onFavClicked: ((ChaptersItem?) -> Unit)?,
-    val showFavBtn: Boolean
+    val showFavBtn: Boolean,
+    val onFavClickedNot: ((ChaptersItem?) -> Unit)?
 ) :
     RecyclerView.Adapter<ChaptersAdapter.viewHolder>() {
 
@@ -61,6 +62,7 @@ class ChaptersAdapter(
                         true
                     } else {
                         saveBtn.setImageResource(R.drawable.baseline_favorite_border_24)
+                        onFavClickedNot?.invoke(chapter)
                         false
                     }
                 }

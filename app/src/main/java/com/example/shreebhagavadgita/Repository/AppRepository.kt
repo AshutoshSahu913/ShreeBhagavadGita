@@ -96,6 +96,10 @@ class AppRepository(
     fun getAParticularChapter(chapter_num: Int): LiveData<SavedChapterEntity> =
         saveChapterDao.getAParticularChapter(chapter_num)
 
+
+   suspend fun deleteSavedChapter(id: Int) = saveChapterDao.deleteSavedChapter(id)
+
+
     //saved verses
     suspend fun insertEnglishVerse(savedVerses: SavedVersesEntity) =
         savedVersesDao.insertEnglishVerse(savedVerses)
@@ -106,6 +110,6 @@ class AppRepository(
     fun getAParticularVerse(chapter_num: Int, verse_num: Int): LiveData<SavedVersesEntity> =
         savedVersesDao.getAParticularVerse(chapter_num, verse_num)
 
-    fun deleteSavedVerse(chapter_num: Int, verse_num: Int) =
+    suspend fun deleteSavedVerse(chapter_num: Int, verse_num: Int) =
         savedVersesDao.deleteSavedVerse(chapter_num, verse_num)
 }

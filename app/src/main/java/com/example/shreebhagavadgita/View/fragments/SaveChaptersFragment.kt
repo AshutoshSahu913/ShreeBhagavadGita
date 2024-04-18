@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shreebhagavadgita.DataSource.Models.ChaptersItem
@@ -13,6 +14,7 @@ import com.example.shreebhagavadgita.R
 import com.example.shreebhagavadgita.View.Adapters.ChaptersAdapter
 import com.example.shreebhagavadgita.ViewModel.MainViewModel
 import com.example.shreebhagavadgita.databinding.FragmentSaveChaptersBinding
+import kotlinx.coroutines.launch
 
 class SaveChaptersFragment : Fragment() {
 
@@ -58,7 +60,12 @@ class SaveChaptersFragment : Fragment() {
             }
             binding.rvChapters.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            chapterAdapter = ChaptersAdapter(onClickedChapter = ::onClickedChapter, null,false)
+            chapterAdapter = ChaptersAdapter(
+                onClickedChapter = ::onClickedChapter,
+                null,
+                false,
+                null
+            )
             binding.rvChapters.adapter = chapterAdapter
             chapterAdapter.differ.submitList(chaptersList)
 
@@ -79,4 +86,12 @@ class SaveChaptersFragment : Fragment() {
 
     }
 
+
+    private fun onFavClickedNot(chaptersItem: ChaptersItem?) {
+        lifecycleScope.launch {
+            if (chaptersItem != null) {
+                viewModel.deleteSavedChapter(chaptersItem.id)
+            }
+        }
+    }
 }

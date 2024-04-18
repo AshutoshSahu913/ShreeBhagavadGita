@@ -22,7 +22,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     //data fetch from API -------------------------------------------------------------------------------------------------
     fun getAllChapter(): Flow<Chapters> = appRepository.getAllChapters()
 
-
     fun getVerses(chapterNumber: Int): Flow<List<VersesItem>> =
         appRepository.getVerses(chapterNumber)
 
@@ -35,9 +34,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     suspend fun insertData(savedChapter: SavedChapterEntity) =
         appRepository.insertData(savedChapter)
 
-    //get saved chpaters
+    //get saved chapters
     fun getSavedChapter(): LiveData<List<SavedChapterEntity>> = appRepository.getSavedChapter()
 
+    //delete saved chapters
+    suspend fun deleteSavedChapter(id: Int) = appRepository.deleteSavedChapter(id)
 
     fun getAParticularChapter(chapter_num: Int): LiveData<SavedChapterEntity> =
         appRepository.getAParticularChapter(chapter_num)
@@ -53,7 +54,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun getAParticularVerse(chapter_num: Int, verse_num: Int): LiveData<SavedVersesEntity> =
         appRepository.getAParticularVerse(chapter_num, verse_num)
 
-    fun deleteSavedVerse(chapter_num: Int, verse_num: Int) =
+    suspend fun deleteSavedVerse(chapter_num: Int, verse_num: Int) =
         appRepository.deleteSavedVerse(chapter_num, verse_num)
 
 }

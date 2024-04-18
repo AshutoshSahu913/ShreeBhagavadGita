@@ -16,7 +16,7 @@ interface SaveChapterDao {
     fun getSavedChapter(): LiveData<List<SavedChapterEntity>>
 
     @Query("DELETE FROM savedchapters where id = :id")
-    fun deleteSavedChapter(id: Int)
+  suspend  fun deleteSavedChapter(id: Int)
 
     @Query("SELECT * FROM SavedChapters Where chapter_number = :chapter_num")
     fun getAParticularChapter(chapter_num: Int): LiveData<SavedChapterEntity>
@@ -36,6 +36,6 @@ interface SavedVersesDao {
     fun getAParticularVerse(chapter_num: Int, verse_num: Int): LiveData<SavedVersesEntity>
 
     @Query("DELETE FROM SavedVerses where chapter_number = :chapter_num AND verse_number= :verse_num")
-    fun deleteSavedVerse(chapter_num: Int, verse_num: Int)
+    suspend fun deleteSavedVerse(chapter_num: Int, verse_num: Int)
 
 }
