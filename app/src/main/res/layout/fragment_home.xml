@@ -111,7 +111,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
+
                             android:orientation="vertical">
 
                             <TextView
@@ -127,9 +127,11 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/tvVerseOfTheDay"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="3dp"
+                                android:gravity="center_horizontal"
                                 android:fontFamily="@font/commissioner_light"
                                 android:padding="2dp"
                                 android:text="The first chapter of the Bhagavad Gita - Arjuna Vishada Yoga introduces the setup, the setting, the characters and the circumstances that led to the epic battle of Mahabharata, fought between the Pandavas and the Kauravas."
@@ -138,6 +140,7 @@
                         </LinearLayout>
 
                         <ImageView
+
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
                             android:alpha="0.15"

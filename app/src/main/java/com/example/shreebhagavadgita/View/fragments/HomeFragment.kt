@@ -40,6 +40,8 @@ class HomeFragment : Fragment() {
 
         checkInternetConnectivity()
 
+        showVerseOfTheDay()
+
         binding.saveBtn.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_saveFragment)
         }
@@ -47,6 +49,23 @@ class HomeFragment : Fragment() {
 
 //        findNavController().popBackStack()
         return binding.root
+    }
+
+    private fun showVerseOfTheDay() {
+        val chapterNumber = (1..18).random()
+        val verseNumber = (1..20).random()
+
+        lifecycleScope.launch {
+            viewModel.getParticularVerse(chapterNumber, verseNumber).collect {
+                for (i in it.translations) {
+                    if (i.language == "english") {
+                        binding.tvVerseOfTheDay.text = i.description
+                        break
+                    }
+                }
+            }
+        }
+
     }
 
     private fun checkInternetConnectivity() {
