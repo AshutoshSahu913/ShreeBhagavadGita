@@ -1,6 +1,9 @@
 package com.example.shreebhagavadgita.View.fragments
 
 import android.app.Dialog
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -8,8 +11,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -27,7 +33,7 @@ import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
-    private lateinit var binding: FragmentHomeBinding
+    private lateinit var binding:FragmentHomeBinding
     private val viewModel: MainViewModel by viewModels()
     private lateinit var chapterAdapter: ChaptersAdapter
 
@@ -45,11 +51,21 @@ class HomeFragment : Fragment() {
         binding.saveBtn.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_saveFragment)
         }
-
-
-//        findNavController().popBackStack()
+        setStatusBarColor()
         return binding.root
     }
+
+    private fun setStatusBarColor() {
+        val window = activity?.window
+        window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window?.statusBarColor = ContextCompat.getColor(requireContext(), R.color.appColor)
+        window?.let {
+            WindowCompat.getInsetsController(it, window.decorView).apply {
+                isAppearanceLightStatusBars = true
+            }
+        }
+    }
+
 
     private fun showVerseOfTheDay() {
         val chapterNumber = (1..18).random()
@@ -57,11 +73,29 @@ class HomeFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.getParticularVerse(chapterNumber, verseNumber).collect {
+                var textToCopy: String = ""
                 for (i in it.translations) {
                     if (i.language == "english") {
                         binding.tvVerseOfTheDay.text = i.description
+                        textToCopy = i.description
                         break
                     }
+                }
+
+                binding.copyBtn.setOnClickListener {
+                    binding.copyBtn.setImageResource(R.drawable.copy_svgrepo_com__2_)
+                    binding.copyBtn.isClickable=false
+                    val clipboardManager =
+
+                        requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val clipData = ClipData.newPlainText("text", textToCopy)
+                    clipboardManager.setPrimaryClip(clipData)
+                    Toast.makeText(
+                        context,
+                        "Verse copied to clipboard",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
                 }
             }
         }

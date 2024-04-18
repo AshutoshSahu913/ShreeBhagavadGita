@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
@@ -33,6 +36,7 @@ class VersesDetailsFragment : Fragment() {
         binding = FragmentVersesDetailsBinding.inflate(layoutInflater)
 
         getAndSetNumbers()
+        setStatusBarColor()
 
         readMore()
 
@@ -231,6 +235,18 @@ class VersesDetailsFragment : Fragment() {
             }
         }
     }
+
+    private fun setStatusBarColor() {
+        val window = activity?.window
+        window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window?.statusBarColor = ContextCompat.getColor(requireContext(), R.color.appColor)
+        window?.let {
+            WindowCompat.getInsetsController(it, window.decorView).apply {
+                isAppearanceLightStatusBars = true
+            }
+        }
+    }
+
 
     private fun readMore() {
         var isExpended = false

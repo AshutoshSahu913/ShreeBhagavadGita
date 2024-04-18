@@ -3,6 +3,7 @@ package com.example.shreebhagavadgita.DataSource.API
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 object ApiUtils {
 
@@ -23,7 +24,7 @@ object ApiUtils {
             }.build()
             chain.proceed(newRequest)
         }
-    }.build()
+    }.callTimeout(8, TimeUnit.SECONDS).build()
 
     private const val BASE_URL = "https://bhagavad-gita3.p.rapidapi.com/"
 
