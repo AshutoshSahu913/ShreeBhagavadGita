@@ -2,6 +2,7 @@ package com.example.shreebhagavadgita.ViewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import com.example.shreebhagavadgita.DataSource.Models.Chapters
 import com.example.shreebhagavadgita.DataSource.Models.VersesItem
 import com.example.shreebhagavadgita.DataSource.Room.AppDatabase
@@ -26,4 +27,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     //save chapters
     suspend fun insertData(savedChapter: SavedChapterEntity) =
         appRepository.insertData(savedChapter)
+
+    //get saved chpaters
+    fun getSavedChapter(): LiveData<List<SavedChapterEntity>> = appRepository.getSavedChapter()
 }

@@ -15,7 +15,8 @@
         >
 
         <LinearLayout
-            android:id="@id/topLinear"
+
+            android:id="@+id/linearLayout4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -37,7 +38,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal">
@@ -72,82 +73,94 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/saveBtn"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:src="@drawable/chakra" />
+                    android:background="@drawable/circle"
+                    android:padding="5dp"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/baseline_save_alt_24"
+                    app:tint="@color/white" />
 
             </LinearLayout>
-
 
             <LinearLayout
-                android:id="@+id/linearLayout3"
+                android:id="@id/topLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+                android:orientation="vertical">
 
-                <com.google.android.material.card.MaterialCardView
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/_6ssp"
-                    app:cardUseCompatPadding="true">
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
-                            android:fontFamily="@font/athiti_medium"
-                            android:padding="2dp"
-                            android:text="Verse of the day"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
-                            android:fontFamily="@font/baloo_bhai_2_extrabold"
-                            android:padding="2dp"
-                            android:text="Verse of the day"
-                            android:textColor="@color/appColor"
-                            android:textSize="17sp" />
-                    </LinearLayout>
-
-                    <ImageView
+                    <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:alpha="0.15"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/krishna1" />
-                </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="@dimen/_6ssp"
+                        app:cardUseCompatPadding="true">
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/baloo_bhai_2_extrabold"
-                android:text="Chapters"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="3dp"
+                                android:fontFamily="@font/baloo_bhai_2_bold"
+                                android:padding="2dp"
+                                android:text="Verse of the day"
+                                android:textColor="@color/appColor1"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="3dp"
+                                android:fontFamily="@font/commissioner_light"
+                                android:padding="2dp"
+                                android:text="The first chapter of the Bhagavad Gita - Arjuna Vishada Yoga introduces the setup, the setting, the characters and the circumstances that led to the epic battle of Mahabharata, fought between the Pandavas and the Kauravas."
+                                android:textColor="@color/black"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:alpha="0.15"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/krishna1" />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <TextView
+
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/baloo_bhai_2_extrabold"
+                    android:text="Chapters"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -159,19 +172,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/topLinear">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                >
+                android:padding="@dimen/_5sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <include layout="@layout/shimmer_items" />
 
                     <include layout="@layout/shimmer_items" />

@@ -1,6 +1,7 @@
 package com.example.shreebhagavadgita.View.Adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -10,8 +11,9 @@ import com.example.shreebhagavadgita.R
 import com.example.shreebhagavadgita.databinding.ChapterListItemsBinding
 
 class ChaptersAdapter(
-    val onClickedChapter: (ChaptersItem) -> Unit,
-    val onFavClicked: (ChaptersItem) -> Unit
+    val onClickedChapter: ((ChaptersItem?) -> Unit)?,
+    val onFavClicked: ((ChaptersItem?) -> Unit)?,
+    val showFavBtn: Boolean
 ) :
     RecyclerView.Adapter<ChaptersAdapter.viewHolder>() {
 
@@ -33,7 +35,12 @@ class ChaptersAdapter(
     inner class viewHolder(var binding: ChapterListItemsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
+
             var chapter = differ.currentList[position]
+
+            if (!showFavBtn) {
+                binding.saveBtn.visibility = View.GONE
+            }
             binding.apply {
 
                 tvChapterNumber.text = "Chapter ${chapter.chapter_number}"
@@ -43,14 +50,13 @@ class ChaptersAdapter(
             }
 
             binding.itemClick.setOnClickListener {
-                onClickedChapter(chapter)
+                onClickedChapter?.invoke(chapter)
             }
             binding.apply {
 
-                val clikced=
                 saveBtn.setOnClickListener {
                     saveBtn.setImageResource(R.drawable.baseline_favorite_24)
-                    onFavClicked(chapter)
+                    onFavClicked?.invoke(chapter)
                 }
             }
         }

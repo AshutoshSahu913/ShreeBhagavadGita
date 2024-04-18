@@ -1,6 +1,7 @@
 package com.example.shreebhagavadgita.Repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import com.example.shreebhagavadgita.DataSource.API.ApiUtils
 import com.example.shreebhagavadgita.DataSource.Models.Chapters
 import com.example.shreebhagavadgita.DataSource.Models.VersesItem
@@ -81,4 +82,6 @@ class AppRepository(val saveChapterDao: SaveChapterDao) {
 
     suspend fun insertData(savedChapter: SavedChapterEntity) =
         saveChapterDao.insertData(savedChapter)
+
+    fun getSavedChapter(): LiveData<List<SavedChapterEntity>> =saveChapterDao.getSavedChapter()
 }

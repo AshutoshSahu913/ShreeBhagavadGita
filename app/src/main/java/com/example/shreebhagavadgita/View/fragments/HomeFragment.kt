@@ -1,6 +1,5 @@
 package com.example.shreebhagavadgita.View.fragments
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -40,6 +39,10 @@ class HomeFragment : Fragment() {
 
         checkInternetConnectivity()
 
+        binding.saveBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_saveFragment)
+        }
+
 
 //        findNavController().popBackStack()
         return binding.root
@@ -74,8 +77,11 @@ class HomeFragment : Fragment() {
 
                 binding.rvChapters.layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-//                chapterAdapter = ChaptersAdapter(requireContext(), it)
-                chapterAdapter = ChaptersAdapter(::onChapterIVClicked, ::onFavClicked)
+                chapterAdapter = ChaptersAdapter(
+                    onClickedChapter = ::onChapterIVClicked,
+                    onFavClicked = ::onFavClicked,
+                    showFavBtn = true
+                )
                 binding.rvChapters.adapter = chapterAdapter
                 //here submit the list to adapter
                 chapterAdapter.differ.submitList(it)
@@ -90,38 +96,41 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun onFavClicked(chaptersItem: ChaptersItem) {
+    private fun onFavClicked(chaptersItem: ChaptersItem?) {
         lifecycleScope.launch {
-            viewModel.getVerses(chaptersItem.chapter_number).collect {
+            //check null here
+            chaptersItem?.let {
+                viewModel.getVerses(it.chapter_number).collect {
 
-                //create list
-                val verseList = arrayListOf<String>()
-                for (currentVerse in it) {
-                    for (verses in currentVerse.translations) {
-                        //check only for english language
-                        if (verses.language == "english") {
-                            verseList.add(verses.description)
-                            Log.d("VERSE_LIST", "getAllVerses: ${verseList.size}")
-                            break
+                    //create list
+                    val verseList = arrayListOf<String>()
+                    for (currentVerse in it) {
+                        for (verses in currentVerse.translations) {
+                            //check only for english language
+                            if (verses.language == "english") {
+                                verseList.add(verses.description)
+                                Log.d("VERSE_LIST", "getAllVerses: ${verseList.size}")
+                                break
+                            }
                         }
                     }
+                    val saveChapter = SavedChapterEntity(
+                        chapter_number = chaptersItem.chapter_number,
+                        chapter_summary = chaptersItem.chapter_summary,
+                        chapter_summary_hindi = chaptersItem.chapter_summary_hindi,
+                        id = chaptersItem.id,
+                        name = chaptersItem.name,
+                        name_meaning = chaptersItem.name_meaning,
+                        name_translated = chaptersItem.name_translated,
+                        name_transliterated = chaptersItem.name_transliterated,
+                        slug = chaptersItem.slug,
+                        verses_count = chaptersItem.verses_count,
+
+                        verses = verseList
+
+                    )
+                    viewModel.insertData(saveChapter)
                 }
-                val saveChapter = SavedChapterEntity(
-                    chapter_number = chaptersItem.chapter_number,
-                    chapter_summary = chaptersItem.chapter_summary,
-                    chapter_summary_hindi = chaptersItem.chapter_summary_hindi,
-                    id = chaptersItem.id,
-                    name = chaptersItem.name,
-                    name_meaning = chaptersItem.name_meaning,
-                    name_translated = chaptersItem.name_translated,
-                    name_transliterated = chaptersItem.name_transliterated,
-                    slug = chaptersItem.slug,
-                    verses_count = chaptersItem.verses_count,
-
-                    verses = verseList
-
-                )
-                viewModel.insertData(saveChapter)
             }
         }
 
@@ -142,17 +151,19 @@ class HomeFragment : Fragment() {
         }
     }
 
-    fun onChapterIVClicked(chaptersItem: ChaptersItem) {
+    fun onChapterIVClicked(chaptersItem: ChaptersItem?) {
 
         val bundle = Bundle()
-        bundle.putInt("chapterNumber", chaptersItem.chapter_number)
-        bundle.putString("chapterTitle", chaptersItem.name_translated)
-        bundle.putString("chapterDesc", chaptersItem.chapter_summary)
-        bundle.putInt("chapterCount", chaptersItem.verses_count)
+        if (chaptersItem != null) {
+            bundle.putInt("chapterNumber", chaptersItem.chapter_number)
+            bundle.putString("chapterTitle", chaptersItem.name_translated)
+            bundle.putString("chapterDesc", chaptersItem.chapter_summary)
+            bundle.putInt("chapterCount", chaptersItem.verses_count)
+        }
 
         findNavController().navigate(R.id.action_homeFragment_to_versesFragment, bundle)
     }
-    @SuppressLint("MissingInflatedId")
+
     private fun showConfirmationDialog() {
         // Inflate the custom layout for the dialog
         val dialogBinding = ExitDialogBinding.inflate(layoutInflater)
