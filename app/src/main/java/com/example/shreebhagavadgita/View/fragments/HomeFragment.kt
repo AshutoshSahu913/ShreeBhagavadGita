@@ -82,7 +82,8 @@ class HomeFragment : Fragment() {
                     onClickedChapter = ::onChapterIVClicked,
                     onFavClicked = ::onFavClicked,
                     showFavBtn = true,
-                    onFavClickedNot = ::onFavClickedNot
+                    onFavClickedNot = ::onFavClickedNot,
+                    viewModel
                 )
                 binding.rvChapters.adapter = chapterAdapter
                 //here submit the list to adapter
@@ -103,6 +104,7 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch {
             //check null here
             chaptersItem?.let {
+                viewModel.putSavedChapterSP(chaptersItem.chapter_number.toString(), chaptersItem.id)
                 viewModel.getVerses(it.chapter_number).collect {
 
                     //create list
@@ -142,6 +144,7 @@ class HomeFragment : Fragment() {
 
     private fun onFavClickedNot(chaptersItem: ChaptersItem?) {
         lifecycleScope.launch {
+            viewModel.deleteSavedChapterSP(chaptersItem?.chapter_number.toString())
             if (chaptersItem != null) {
                 viewModel.deleteSavedChapter(chaptersItem.id)
                 Toast.makeText(requireContext(), "Unsaved chapter", Toast.LENGTH_SHORT).show()

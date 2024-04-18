@@ -9,6 +9,7 @@ import com.example.shreebhagavadgita.DataSource.Room.SaveChapterDao
 import com.example.shreebhagavadgita.DataSource.Room.SavedChapterEntity
 import com.example.shreebhagavadgita.DataSource.Room.SavedVersesDao
 import com.example.shreebhagavadgita.DataSource.Room.SavedVersesEntity
+import com.example.shreebhagavadgita.DataSource.SharedPrep.SharedPreferencesManager
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -18,7 +19,8 @@ import retrofit2.Response
 
 class AppRepository(
     val saveChapterDao: SaveChapterDao,
-    var savedVersesDao: SavedVersesDao
+    val savedVersesDao: SavedVersesDao,
+    val sharedPreferencesManager: SharedPreferencesManager
 ) {
 
     fun getAllChapters(): Flow<Chapters> = callbackFlow {
@@ -43,9 +45,15 @@ class AppRepository(
 
     fun getVerses(chapterNumber: Int): Flow<List<VersesItem>> = callbackFlow {
         val callback = object : Callback<List<VersesItem>> {
-            override fun onResponse(call: Call<List<VersesItem>>, response: Response<List<VersesItem>>) {
+            override fun onResponse(
+                call: Call<List<VersesItem>>,
+                response: Response<List<VersesItem>>
+            ) {
                 if (response.isSuccessful && response.body() != null) {
-                    Log.d("VERSES", "onResponse------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: ${response.body()}")
+                    Log.d(
+                        "VERSES",
+                        "onResponse------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: ${response.body()}"
+                    )
                     trySend(response.body()!!)
                     close()
                 }
@@ -85,22 +93,22 @@ class AppRepository(
     }
 
 
-    //save chpaters
+    //save chpaters---------------------------------------------------------------------------
     suspend fun insertData(savedChapter: SavedChapterEntity) =
         saveChapterDao.insertData(savedChapter)
 
-    //get saved chapters
+    //get saved chapters---------------------------------------------------------------------------
     fun getSavedChapter(): LiveData<List<SavedChapterEntity>> = saveChapterDao.getSavedChapter()
 
-    //get Saved particular chapter
+    //get Saved particular chapter---------------------------------------------------------------------------
     fun getAParticularChapter(chapter_num: Int): LiveData<SavedChapterEntity> =
         saveChapterDao.getAParticularChapter(chapter_num)
 
 
-   suspend fun deleteSavedChapter(id: Int) = saveChapterDao.deleteSavedChapter(id)
+    suspend fun deleteSavedChapter(id: Int) = saveChapterDao.deleteSavedChapter(id)
 
 
-    //saved verses
+    //saved verses---------------------------------------------------------------------------
     suspend fun insertEnglishVerse(savedVerses: SavedVersesEntity) =
         savedVersesDao.insertEnglishVerse(savedVerses)
 
@@ -112,4 +120,21 @@ class AppRepository(
 
     suspend fun deleteSavedVerse(chapter_num: Int, verse_num: Int) =
         savedVersesDao.deleteSavedVerse(chapter_num, verse_num)
+
+    //saved chapter in Shared pref ---------------------------------------------------------------------------
+    fun getAllSavedChapterKeySP(): Set<String> = sharedPreferencesManager.getAllSavedChapterKeySP()
+
+    fun putSavedChapterSP(key: String, value: Int) =
+        sharedPreferencesManager.putSavedChapterSP(key, value)
+
+    fun deleteSavedChapterSP(key: String) = sharedPreferencesManager.deleteSavedChapterSP(key)
+
+    //saved verses in Shared pref---------------------------------------------------------------------------
+
+    fun getAllSavedVersesKeySP(): Set<String> = sharedPreferencesManager.getAllSavedVersesKeySP()
+
+    fun putSavedVersesSP(key: String, value: Int) =
+        sharedPreferencesManager.putSavedVersesSP(key, value)
+
+    fun deleteSavedVersesSP(key: String) = sharedPreferencesManager.deleteSavedVersesSP(key)
 }

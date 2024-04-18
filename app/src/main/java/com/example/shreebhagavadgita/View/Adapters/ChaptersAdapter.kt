@@ -8,13 +8,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shreebhagavadgita.DataSource.Models.ChaptersItem
 import com.example.shreebhagavadgita.R
+import com.example.shreebhagavadgita.ViewModel.MainViewModel
 import com.example.shreebhagavadgita.databinding.ChapterListItemsBinding
 
 class ChaptersAdapter(
     val onClickedChapter: ((ChaptersItem?) -> Unit)?,
     val onFavClicked: ((ChaptersItem?) -> Unit)?,
     val showFavBtn: Boolean,
-    val onFavClickedNot: ((ChaptersItem?) -> Unit)?
+    val onFavClickedNot: ((ChaptersItem?) -> Unit)?,
+    val viewModel: MainViewModel
 ) :
     RecyclerView.Adapter<ChaptersAdapter.viewHolder>() {
 
@@ -37,13 +39,21 @@ class ChaptersAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
 
-            var chapter = differ.currentList[position]
-
+            val chapter = differ.currentList[position]
+            val keys = viewModel.getAllSavedChapterKeySP()
+            var isSaved = false
             if (!showFavBtn) {
                 binding.saveBtn.visibility = View.GONE
+            } else {
+                if (keys.contains(chapter.chapter_number.toString())) {
+                    binding.saveBtn.setImageResource(R.drawable.baseline_favorite_24)
+                    isSaved=true
+                } else {
+                    binding.saveBtn.setImageResource(R.drawable.baseline_favorite_border_24)
+                    isSaved=false
+                }
             }
             binding.apply {
-
                 tvChapterNumber.text = "Chapter ${chapter.chapter_number}"
                 tvChapterTitle.text = chapter.name_translated
                 tvChapterDes.text = chapter.chapter_summary
@@ -54,7 +64,6 @@ class ChaptersAdapter(
                 onClickedChapter?.invoke(chapter)
             }
             binding.apply {
-                var isSaved = false
                 saveBtn.setOnClickListener {
                     isSaved = if (!isSaved) {
                         saveBtn.setImageResource(R.drawable.baseline_favorite_24)
@@ -68,7 +77,6 @@ class ChaptersAdapter(
                 }
             }
         }
-
 
     }
 

@@ -8,6 +8,7 @@ import com.example.shreebhagavadgita.DataSource.Models.VersesItem
 import com.example.shreebhagavadgita.DataSource.Room.AppDatabase
 import com.example.shreebhagavadgita.DataSource.Room.SavedChapterEntity
 import com.example.shreebhagavadgita.DataSource.Room.SavedVersesEntity
+import com.example.shreebhagavadgita.DataSource.SharedPrep.SharedPreferencesManager
 import com.example.shreebhagavadgita.Repository.AppRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -15,9 +16,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val saveChapterDao = AppDatabase.getDatabaseInstance(application).savedChapterDao()
 
-    val saveVerseDao=AppDatabase.getDatabaseInstance(application).savedVersesDao()
+    val saveVerseDao = AppDatabase.getDatabaseInstance(application).savedVersesDao()
 
-    val appRepository = AppRepository(saveChapterDao,saveVerseDao)
+    val sharedPreferencesManager = SharedPreferencesManager(application)
+
+    val appRepository = AppRepository(saveChapterDao, saveVerseDao, sharedPreferencesManager)
 
     //data fetch from API -------------------------------------------------------------------------------------------------
     fun getAllChapter(): Flow<Chapters> = appRepository.getAllChapters()
@@ -56,5 +59,24 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     suspend fun deleteSavedVerse(chapter_num: Int, verse_num: Int) =
         appRepository.deleteSavedVerse(chapter_num, verse_num)
+
+
+    //saved chapter in Shared pref
+    fun getAllSavedChapterKeySP(): Set<String> = appRepository.getAllSavedChapterKeySP()
+
+    fun putSavedChapterSP(key: String, value: Int) =
+        appRepository.putSavedChapterSP(key, value)
+
+    fun deleteSavedChapterSP(key: String) = appRepository.deleteSavedChapterSP(key)
+
+
+    //saved verses in Shared pref---------------------------------------------------------------------------
+
+    fun getAllSavedVersesKeySP(): Set<String> = appRepository.getAllSavedVersesKeySP()
+
+    fun putSavedVersesSP(key: String, value: Int) =
+        appRepository.putSavedVersesSP(key, value)
+
+    fun deleteSavedVersesSP(key: String) = appRepository.deleteSavedVersesSP(key)
 
 }

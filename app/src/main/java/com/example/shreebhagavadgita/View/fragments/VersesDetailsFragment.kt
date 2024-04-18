@@ -165,12 +165,11 @@ class VersesDetailsFragment : Fragment() {
             //check the internet connectivity
             checkInternetConnectivity()
         }
-
-
     }
 
     private fun savingVerseDetails() {
         verseDetail.observe(viewLifecycleOwner) {
+            viewModel.putSavedVersesSP(it.verse_number.toString(), it.verse_number)
             val englishTranslationList = arrayListOf<Translation>()
             for (i in it.translations) {
                 //fetch only english language verse
@@ -207,6 +206,14 @@ class VersesDetailsFragment : Fragment() {
 
     private fun onSaveVerse() {
         var isClicked = false
+        val keys = viewModel.getAllSavedVersesKeySP()
+        if (keys.contains(versesNum.toString())) {
+            binding.verseSaveBtn.setImageResource(R.drawable.baseline_favorite_24)
+            isClicked = true
+        } else {
+            binding.verseSaveBtn.setImageResource(R.drawable.baseline_favorite_border_24)
+            isClicked = false
+        }
 
         binding.verseSaveBtn.setOnClickListener {
             if (!isClicked) {
@@ -217,6 +224,7 @@ class VersesDetailsFragment : Fragment() {
                 lifecycleScope.launch {
                     binding.verseSaveBtn.setImageResource(R.drawable.baseline_favorite_border_24)
                     isClicked = false
+                    viewModel.deleteSavedVersesSP(versesNum.toString())
                     viewModel.deleteSavedVerse(chapterNum, versesNum)
                     Toast.makeText(requireContext(), "Unsaved Verses", Toast.LENGTH_SHORT).show()
                 }

@@ -33,17 +33,10 @@ class AdapterSavedVerses(val onVersesItemClicked: (SavedVersesEntity) -> Unit) :
                 verseNumber.text = "Verse ${verses.chapter_number}.${verses.verse_number}"
                 verseDes.text = verses.translations[0].description
 
-
                 versesItemClick.setOnClickListener {
-
                     onVersesItemClicked(verses)
-
                 }
-
-
             }
-
-
         }
     }
 

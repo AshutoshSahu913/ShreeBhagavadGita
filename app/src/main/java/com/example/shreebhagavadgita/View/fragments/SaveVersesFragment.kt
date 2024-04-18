@@ -43,6 +43,10 @@ class SaveVersesFragment : Fragment() {
             //get list to adpater
             adapterSavedVerses.differ.submitList(it)
 
+            if (it.isEmpty()) {
+                binding.progressBar.visibility = View.GONE
+                binding.noDataSaved.visibility = View.VISIBLE
+            }
             //hide shimmer after data in set
             binding.shimmerVerses.visibility = View.GONE
             binding.progressBar.visibility = View.GONE
@@ -61,8 +65,6 @@ class SaveVersesFragment : Fragment() {
         bundle.putInt("versesNum", savedVerses.verse_number)
         findNavController().navigate(R.id.action_saveVersesFragment_to_versesDetailsFragment, bundle)
     }
-
-
 
 
 }

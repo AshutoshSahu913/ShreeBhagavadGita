@@ -64,7 +64,8 @@ class SaveChaptersFragment : Fragment() {
                 onClickedChapter = ::onClickedChapter,
                 null,
                 false,
-                null
+                null,
+                viewModel
             )
             binding.rvChapters.adapter = chapterAdapter
             chapterAdapter.differ.submitList(chaptersList)
